@@ -3,7 +3,7 @@ import { HospitalsService } from './hospitals.service';
 import { CreateHospitalDto } from './dto/hospital.dto';
 import { UpdateHospitalDto } from './dto/update-hospital.dto';
 
-@Controller('hopitaux')
+@Controller('hospitals')
 export class HospitalsController {
   constructor(private readonly hospitalsService: HospitalsService) {}
 

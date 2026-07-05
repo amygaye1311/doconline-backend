@@ -12,10 +12,11 @@ export class RendezVousService {
     private repo: Repository<RendezVous>,
   ) {}
 
-  // 🟢 CREATE
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   create(dto: CreateRendezVousDto, id: any) {
-    const rdv = this.repo.create(dto);
+    const rdv = this.repo.create({
+      ...dto,
+      statut: dto.statut || 'Planifié',
+    });
     return this.repo.save(rdv);
   }
 

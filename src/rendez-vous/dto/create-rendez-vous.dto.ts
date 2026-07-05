@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString, IsOptional, IsNumber } from 'class-validator';
 
 export class CreateRendezVousDto {
   @IsNotEmpty()
@@ -14,7 +14,8 @@ export class CreateRendezVousDto {
   telephone: string;
 
   @IsEmail()
-  email: string;
+  @IsOptional()
+  email?: string;
 
   @IsNotEmpty()
   @IsString()
@@ -31,4 +32,20 @@ export class CreateRendezVousDto {
   @IsNotEmpty()
   @IsString()
   statut: string;
+
+  @IsNumber()
+  @IsOptional()
+  age?: number;
+
+  @IsString()
+  @IsOptional()
+  hopital?: string;
+
+  @IsString()
+  @IsOptional()
+  specialiste?: string;
+
+  @IsString()
+  @IsOptional()
+  notes?: string;
 }

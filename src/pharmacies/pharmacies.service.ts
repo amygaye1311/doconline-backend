@@ -23,8 +23,8 @@ export class PharmaciesService {
   }
 
   async findAll(): Promise<Pharmacy[]> {
-    return this.pharmacyRepository.find({ 
-      relations: { medicines: true } 
+    return this.pharmacyRepository.find({
+      relations: { medicines: true },
     });
   }
 
@@ -54,11 +54,11 @@ export class PharmaciesService {
   // ==========================================
 
   async findNearby(
-    userLat: number, 
-    userLng: number, 
+    userLat: number,
+    userLng: number,
     radiusInKm: number,
     openLate?: boolean,
-    closeEarly?: boolean
+    closeEarly?: boolean,
   ): Promise<any[]> {
     const query = this.pharmacyRepository
       .createQueryBuilder('pharmacy')
@@ -66,7 +66,7 @@ export class PharmaciesService {
       // Formule de Haversine ajustée avec les champs exacts : latitude et longitude
       .addSelect(
         `( 6371 * acos( cos( radians(${userLat}) ) * cos( radians( pharmacy.latitude ) ) * cos( radians( pharmacy.longitude ) - radians(${userLng}) ) + sin( radians(${userLat}) ) * sin( radians( pharmacy.latitude ) ) ) )`,
-        'distance'
+        'distance',
       )
       .having('distance <= :radius', { radius: radiusInKm });
 
@@ -77,17 +77,22 @@ export class PharmaciesService {
 
     // Filtre : Ferme avant 18h ("18:00")
     if (closeEarly) {
-      query.andWhere('pharmacy.closingTime < :earlyTime', { earlyTime: '18:00' });
+      query.andWhere('pharmacy.closingTime < :earlyTime', {
+        earlyTime: '18:00',
+      });
     }
 
-    return query.orderBy('distance', 'ASC').getRawMany(); 
+    return query.orderBy('distance', 'ASC').getRawMany();
   }
 
   // ==========================================
   // 3. CRUD MÉDICAMENTS & GESTION DES STOCKS
   // ==========================================
 
-  async addMedicine(pharmacyId: number, medicineData: Partial<Medicine>): Promise<Medicine> {
+  async addMedicine(
+    pharmacyId: number,
+    medicineData: Partial<Medicine>,
+  ): Promise<Medicine> {
     const pharmacy = await this.findOne(pharmacyId);
     const newMedicine = this.medicineRepository.create({
       ...medicineData,
@@ -99,14 +104,18 @@ export class PharmaciesService {
   async findMedicinesByPharmacy(pharmacyId: number): Promise<Medicine[]> {
     const pharmacy = await this.findOne(pharmacyId);
     return this.medicineRepository.find({
-      where: { pharmacy: { id: pharmacy.id } }
+      where: { pharmacy: { id: pharmacy.id } },
     });
   }
 
   async updateStock(medicineId: number, newStock: number): Promise<Medicine> {
-    const medicine = await this.medicineRepository.findOne({ where: { id: medicineId } });
+    const medicine = await this.medicineRepository.findOne({
+      where: { id: medicineId },
+    });
     if (!medicine) {
-      throw new NotFoundException(`Médicament avec l'ID ${medicineId} introuvable`);
+      throw new NotFoundException(
+        `Médicament avec l'ID ${medicineId} introuvable`,
+      );
     }
     medicine.stock = newStock;
     return this.medicineRepository.save(medicine);

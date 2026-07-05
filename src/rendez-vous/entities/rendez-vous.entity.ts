@@ -30,7 +30,18 @@ export class RendezVous {
   @Column()
   statut: string;
 
-  // 🔗 LIAISON AVEC USER (PATIENT)
+  @Column({ nullable: true })
+  age: number;
+
+  @Column({ nullable: true })
+  hopital: string;
+
+  @Column({ nullable: true })
+  specialiste: string;
+
+  @Column({ nullable: true })
+  notes: string;
+
   @ManyToOne(() => User, (user) => user.rendezVous, { eager: true })
   user: User;
 }
