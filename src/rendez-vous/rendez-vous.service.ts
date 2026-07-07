@@ -12,6 +12,7 @@ export class RendezVousService {
     private repo: Repository<RendezVous>,
   ) {}
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   create(dto: CreateRendezVousDto, id: any) {
     const rdv = this.repo.create({
       ...dto,

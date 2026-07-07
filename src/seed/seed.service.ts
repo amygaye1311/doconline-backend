@@ -28,11 +28,11 @@ export class SeedService implements OnModuleInit {
 
   async seed() {
     const hospital1 = this.hospitalRepo.create({
-      name: "Hôpital Principal de Dakar",
-      address: "Dakar",
-      city: "Dakar",
-      country: "Sénégal",
-      phone: "+221 33 839 50 00",
+      name: 'Hôpital Principal de Dakar',
+      address: 'Dakar',
+      city: 'Dakar',
+      country: 'Sénégal',
+      phone: '+221 33 839 50 00',
     });
 
     const hospital2 = this.hospitalRepo.create({

@@ -33,6 +33,7 @@ export class RendezVousController {
   @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() dto: CreateRendezVousDto, @Request() req: any) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     return this.rendezVousService.create(dto, req.user.id);
   }
 

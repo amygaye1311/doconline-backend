@@ -6,9 +6,7 @@ import { Doctor } from './doctors.entity';
 import { Hospital } from '../hospitals/hospitals.entity';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([Doctor, Hospital]),
-  ],
+  imports: [TypeOrmModule.forFeature([Doctor, Hospital])],
   controllers: [DoctorsController],
   providers: [DoctorsService],
 })

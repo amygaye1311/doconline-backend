@@ -1,4 +1,16 @@
-import { Controller, Get, Post, Put, Patch, Delete, Body, Param, Query, ParseIntPipe, ParseFloatPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Patch,
+  Delete,
+  Body,
+  Param,
+  Query,
+  ParseIntPipe,
+  ParseFloatPipe,
+} from '@nestjs/common';
 import { PharmaciesService } from './pharmacies.service';
 import { Pharmacy } from './entities/pharmacy.entity';
 import { Medicine } from './entities/medicine.entity';
@@ -22,7 +34,13 @@ export class PharmaciesController {
   ) {
     const isOpenLate = openLate === 'true';
     const isCloseEarly = closeEarly === 'true';
-    return this.pharmaciesService.findNearby(lat, lng, radius, isOpenLate, isCloseEarly);
+    return this.pharmaciesService.findNearby(
+      lat,
+      lng,
+      radius,
+      isOpenLate,
+      isCloseEarly,
+    );
   }
 
   @Get()
@@ -36,7 +54,10 @@ export class PharmaciesController {
   }
 
   @Put(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() updateData: Partial<Pharmacy>) {
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateData: Partial<Pharmacy>,
+  ) {
     return this.pharmaciesService.update(id, updateData);
   }
 
@@ -46,7 +67,10 @@ export class PharmaciesController {
   }
 
   @Post(':id/medicines')
-  addMedicine(@Param('id', ParseIntPipe) id: number, @Body() medicineData: Partial<Medicine>) {
+  addMedicine(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() medicineData: Partial<Medicine>,
+  ) {
     return this.pharmaciesService.addMedicine(id, medicineData);
   }
 
@@ -55,7 +79,7 @@ export class PharmaciesController {
     return this.pharmaciesService.findMedicinesByPharmacy(id);
   }
 
-  @Patch('/../medicines/:id/stock') 
+  @Patch('/../medicines/:id/stock')
   updateStock(
     @Param('id', ParseIntPipe) id: number,
     @Body('stock', ParseIntPipe) stock: number,

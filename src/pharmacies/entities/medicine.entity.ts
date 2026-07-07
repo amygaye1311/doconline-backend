@@ -19,6 +19,8 @@ export class Medicine {
   price: number;
 
   // Relation inverse : Le médicament appartient à une pharmacie (ManyToOne)
-  @ManyToOne(() => Pharmacy, (pharmacy) => pharmacy.medicines, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Pharmacy, (pharmacy) => pharmacy.medicines, {
+    onDelete: 'CASCADE',
+  })
   pharmacy: Pharmacy;
 }

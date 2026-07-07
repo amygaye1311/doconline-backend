@@ -28,7 +28,9 @@ export class DoctorsService {
   }
 
   async create(doctorDto: DoctorDto) {
-    const hospital = await this.hospitalRepository.findOneBy({ id: doctorDto.hospitalId });
+    const hospital = await this.hospitalRepository.findOneBy({
+      id: doctorDto.hospitalId,
+    });
     if (!hospital) {
       throw new Error('Hospital not found');
     }
@@ -44,7 +46,9 @@ export class DoctorsService {
   }
 
   async update(id: number, doctorDto: DoctorDto) {
-    const hospital = await this.hospitalRepository.findOneBy({ id: doctorDto.hospitalId });
+    const hospital = await this.hospitalRepository.findOneBy({
+      id: doctorDto.hospitalId,
+    });
     if (!hospital) {
       throw new Error('Hospital not found');
     }
